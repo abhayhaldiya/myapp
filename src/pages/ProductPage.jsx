@@ -80,24 +80,40 @@ const ProductPage = () => {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <Loader />
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Loader message="Loading product details..." />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="max-w-md w-full mx-4">
+          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+            {/* Error Icon */}
+            <div className="mb-4">
+              <svg className="w-16 h-16 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            
+            {/* Error Message */}
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Oops!</h3>
+            <p className="text-gray-600 mb-6">{error}</p>
+            
+            {/* Back Button */}
+            <button
+              onClick={() => navigate('/')}
+              className="inline-flex items-center gap-2 bg-gradient-teal text-white px-8 py-3 rounded-xl shadow-button hover:shadow-button-hover transform hover:scale-105 transition-all duration-300 font-semibold group"
+            >
+              <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back to Products
+            </button>
+          </div>
         </div>
-        <button
-          onClick={() => navigate('/')}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
-        >
-          Back to Home
-        </button>
       </div>
     );
   }
@@ -170,15 +186,28 @@ const ProductPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      {/* Breadcrumb & Back Button */}
+      <div className="bg-white border-b shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <button
             onClick={() => navigate('/')}
-            className="text-sm text-gray-600 hover:text-gray-900"
+            className="inline-flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors group"
           >
-            ← Shop on EMI &gt; Smart Phones &gt; Apple &gt; {product.name}
+            <svg 
+              className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Back to Products</span>
           </button>
+          
+          {/* Breadcrumb */}
+          <div className="mt-2 text-xs text-gray-500">
+            Home &gt; Smart Phones &gt; {product.name}
+          </div>
         </div>
       </div>
 
@@ -433,8 +462,14 @@ const ProductPage = () => {
             </div>
 
             {/* Buy Button */}
-            <button className="w-full bg-teal-600 text-white font-semibold py-4 rounded-lg hover:bg-teal-700 transition-colors text-lg">
-              Buy on {selectedPlan ? selectedPlan.tenureMonths : 3} months EMI
+            <button className="w-full bg-gradient-teal text-white font-bold py-5 rounded-xl shadow-button hover:shadow-button-hover transform hover:scale-105 transition-all duration-300 text-lg flex items-center justify-center gap-3 group">
+              <svg className="w-6 h-6 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span>Buy on {selectedPlan ? selectedPlan.tenureMonths : 3} months EMI</span>
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
 
             {/* Additional Info */}
